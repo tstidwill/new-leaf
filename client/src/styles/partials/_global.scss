@@ -1,0 +1,74 @@
+@use "../partials/_mixins" as *;
+@use "../partials/_variables" as *;
+@use "../partials/_typography" as *;
+
+* {
+  margin: 0rem;
+  padding: 0rem;
+  box-sizing: border-box;
+}
+
+html,
+body {
+  font-family: $font-family;
+  color: $primary-dark;
+}
+
+h1 {
+  font-weight: 600;
+  font-size: 2.5rem;
+  line-height: 2.75rem;
+}
+
+h2 {
+  font-weight: 600;
+  font-size: 2.25rem;
+  line-height: 2.5rem;
+}
+
+h3 {
+  font-weight: 600;
+  font-size: 2rem;
+  line-height: 2.25rem;
+}
+
+h4 {
+  font-weight: 600;
+  font-size: 1.5rem;
+  line-height: 1.75rem;
+}
+
+h5 {
+  font-weight: 600;
+  font-size: 1rem;
+  line-height: 1.25rem;
+}
+h6 {
+  font-family: $special-font;
+  font-weight: 600;
+  font-size: 1rem;
+  line-height: 1.25rem;
+}
+
+p {
+  font-weight: 400;
+  font-size: 1rem;
+  line-height: 1.25rem;
+}
+
+ul,
+li {
+  list-style-type: none;
+  text-decoration: none;
+}
+
+a {
+  text-decoration: none;
+  word-wrap: break-word;
+  margin: 0rem;
+  padding: 0rem;
+}
+
+::placeholder {
+  color: $secondary-dark;
+}
