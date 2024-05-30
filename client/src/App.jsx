@@ -1,7 +1,15 @@
 import "./App.scss";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import LandingPage from "../pages/LandingPage/LandingPage";
 
 function App() {
-  return <p>Welcome to new leaf</p>;
+  return (
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<LandingPage />} />
+      </Routes>
+    </BrowserRouter>
+  );
 }
 
 export default App;
