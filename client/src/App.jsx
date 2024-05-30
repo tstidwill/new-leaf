@@ -1,5 +1,7 @@
+import "./App.scss";
+
 function App() {
-  return <>Welcome to new leaf</>;
+  return <p>Welcome to new leaf</p>;
 }
 
 export default App;
