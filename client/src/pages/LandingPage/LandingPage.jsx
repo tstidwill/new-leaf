@@ -17,7 +17,7 @@ export default function LandingPage() {
           <div className="landingpage__cta">
             <h5>sustaible living at your fingertips</h5>
             <Link className="button" to={"/discover"}>
-              <button className="button">
+              <button className="button--round">
                 <h6>discover</h6>
               </button>
             </Link>
