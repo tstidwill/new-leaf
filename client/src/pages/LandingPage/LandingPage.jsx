@@ -21,7 +21,6 @@ export default function LandingPage() {
             </button>
           </div>
         </div>
-        <Footer />
       </main>
     </>
   );
