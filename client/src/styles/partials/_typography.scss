@@ -9,8 +9,15 @@
 
 @font-face {
   font-family: $font-family;
-  src: url("/assets/fonts/Sen-Bold.ttf") format("truetype");
+  src: url("/assets/fonts/Sen-SemiBold.ttf") format("truetype");
   font-weight: 600;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: $font-family;
+  src: url("/assets/fonts/Sen-Bold.ttf") format("truetype");
+  font-weight: 800;
   font-style: normal;
 }
 
