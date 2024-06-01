@@ -1,5 +1,6 @@
 import "./LandingPage.scss";
 import darkLogo from "../../assets/logos/newleaf-logo-dark.png";
+import { Link } from "react-router-dom";
 
 export default function LandingPage() {
   return (
@@ -15,9 +16,11 @@ export default function LandingPage() {
           </div>
           <div className="landingpage__cta">
             <h5>sustaible living at your fingertips</h5>
-            <button className="button">
-              <h6>discover</h6>
-            </button>
+            <Link className="button" to={"/discover"}>
+              <button className="button">
+                <h6>discover</h6>
+              </button>
+            </Link>
           </div>
         </div>
       </main>
