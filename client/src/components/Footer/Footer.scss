@@ -1,0 +1,26 @@
+.footer {
+  height: 10vh;
+  display: flex;
+  justify-content: space-around;
+
+  &__logo {
+    width: 45px;
+    height: 45px;
+  }
+
+  &__logocontainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+}
+.earthicon {
+  width: 40px;
+  height: 40px;
+  margin: 2.5px;
+}
+.calendaricon {
+  width: 45px;
+  height: 45px;
+}
