@@ -1,5 +1,6 @@
 import "./LandingPage.scss";
 import darkLogo from "../../assets/logos/newleaf-logo-dark.png";
+import Footer from "../../components/Footer/Footer";
 
 export default function LandingPage() {
   return (
@@ -20,6 +21,7 @@ export default function LandingPage() {
             </button>
           </div>
         </div>
+        <Footer />
       </main>
     </>
   );
