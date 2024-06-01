@@ -34,7 +34,7 @@ h3 {
 
 h4 {
   font-weight: 600;
-  font-size: 1.5rem;
+  font-size: 1.25rem;
   line-height: 1.75rem;
 }
 
@@ -71,4 +71,26 @@ a {
 
 ::placeholder {
   color: $secondary-dark;
+}
+
+.logo {
+  width: 75px;
+  height: 75px;
+}
+
+.button--round {
+  width: 10rem;
+  height: 2.5rem;
+  border: none;
+  border-radius: 50px;
+  color: $primary-light;
+  background-color: $primary-dark;
+}
+.button--square {
+  background-color: $primary-dark;
+  height: 3rem;
+  color: $primary-light;
+  font-family: $font-family;
+  border: none;
+  font-size: 1rem;
 }
