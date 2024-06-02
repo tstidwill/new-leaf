@@ -8,7 +8,6 @@
   box-sizing: border-box;
 }
 
-html,
 body {
   font-family: $font-family;
   color: $primary-dark;
@@ -46,7 +45,7 @@ h5 {
 h6 {
   font-family: $special-font;
   font-weight: 400;
-  font-size: 1rem;
+  font-size: 0.9rem;
   line-height: 1.25rem;
 }
 

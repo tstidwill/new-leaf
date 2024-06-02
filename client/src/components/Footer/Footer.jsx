@@ -7,19 +7,19 @@ import "./Footer.scss";
 export default function Footer() {
   return (
     <footer className="footer">
-      <NavLink to="/">
+      <NavLink to="/" className="footer__text">
         <div className="footer__logocontainer">
           <img src={earthIcon} alt="earth icon" className="earthicon" />
           <h6>discover</h6>
         </div>
       </NavLink>
-      <NavLink to="/">
+      <NavLink to="/" className="footer__text">
         <div className="footer__logocontainer">
           <img src={greenLogo} alt="leaf logo" className="footer__logo" />
           <h6>home</h6>
         </div>
       </NavLink>
-      <NavLink to="/">
+      <NavLink to="/" className="footer__text">
         <div className="footer__logocontainer">
           <img
             src={calendarIcon}
