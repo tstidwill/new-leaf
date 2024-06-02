@@ -32,6 +32,7 @@ Those interested in living more sustainably looking for shops & resources near t
   - react
   - react-router
   - axios
+  - @react-google-maps/api
 - Server libraries:
   - knex
   - express
@@ -47,8 +48,9 @@ Those interested in living more sustainably looking for shops & resources near t
 
 ### Sitemap
 
-- Home page
-- Map & list shops & events
+- Landing Page: user input for location
+- Home page/mission page
+- Discover Page: Map with list of shops & events based on postal code
 - Register \*time permitting
 - Login \*time permittin
 - Calendar events \*time permitting
