@@ -1,6 +1,7 @@
 @use "../../styles/partials/variables" as *;
 
-.map {
-  height: 30rem;
+.map-container {
+  height: 35rem;
+  width: 100%;
   background-color: $secondary-light;
 }
