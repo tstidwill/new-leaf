@@ -48,6 +48,7 @@ function App() {
               setPostalCode={setPostalCode}
               postalCodeValidation={postalCodeValidation}
               error={error}
+              setError={setError}
             />
           }
         />
