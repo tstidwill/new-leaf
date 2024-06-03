@@ -1,12 +1,15 @@
 import "./LandingPage.scss";
 import greenLogo from "../../assets/logos/greenlogo.png";
-import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-export default function LandingPage({ postalCode, setPostalCode }) {
+export default function LandingPage({
+  postalCode,
+  setPostalCode,
+  postalCodeValidation,
+  error,
+  setError,
+}) {
   const navigate = useNavigate();
-
-  const [error, setError] = useState("");
 
   const handleChange = (e) => {
     setPostalCode(e.target.value);
@@ -15,30 +18,20 @@ export default function LandingPage({ postalCode, setPostalCode }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const postalCodeFormat = /^[A-Za-z]\d[A-Za-z] ?\d[AA-Za-z]\d$/;
-
-    if (postalCode.trim() === "") {
-      setError("Please enter a postal code");
-      return;
+    const isValidPostalCode = postalCodeValidation(postalCode);
+    if (isValidPostalCode) {
+      const formattedPostalCode = postalCode.replace(/\s/g, "").toUpperCase();
+      setPostalCode(formattedPostalCode);
+      console.log("postal code submitted: ", formattedPostalCode);
+      navigate("/discover");
     }
-
-    if (!postalCodeFormat.test(postalCode.trim())) {
-      setError("Invalid postal code format. Format: A1A 1A1");
-      return;
-    }
-
-    //post logic here
-    const formattedPostalCode = postalCode.replace(/\s/g, "").toUpperCase();
-    setPostalCode(formattedPostalCode);
-    console.log("postal code submitted: ", formattedPostalCode);
-    navigate("/discover");
   };
 
   return (
     <>
       <main className="landingpage">
         <div className="landingpage__logobox">
-          <img src={greenLogo} className="logo"></img>
+          <img src={greenLogo} className="logo" alt="leaf logo"></img>
         </div>
         <div className="landingpage__body">
           <div className="landingpage__caption">
