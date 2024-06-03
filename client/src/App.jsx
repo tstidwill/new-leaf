@@ -6,6 +6,25 @@ import { useState } from "react";
 
 function App() {
   const [postalCode, setPostalCode] = useState("");
+  const [error, setError] = useState("");
+
+  const postalCodeValidation = (postalCode) => {
+    const postalCodeFormat = /^[A-Za-z]\d[A-Za-z] ?\d[AA-Za-z]\d$/;
+
+    if (postalCode.trim() === "") {
+      setError("Please enter a postal code");
+      return false;
+    }
+
+    if (!postalCodeFormat.test(postalCode.trim())) {
+      setError("Invalid postal code format. Format: A1A 1A1");
+      return false;
+    }
+
+    setError("");
+    return true;
+  };
+
   return (
     <BrowserRouter>
       <Routes>
@@ -15,6 +34,9 @@ function App() {
             <LandingPage
               postalCode={postalCode}
               setPostalCode={setPostalCode}
+              postalCodeValidation={postalCodeValidation}
+              error={error}
+              setError={setError}
             />
           }
         />
@@ -24,6 +46,8 @@ function App() {
             <DiscoverPage
               postalCode={postalCode}
               setPostalCode={setPostalCode}
+              postalCodeValidation={postalCodeValidation}
+              error={error}
             />
           }
         />
