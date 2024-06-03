@@ -1,6 +1,6 @@
 import "./DiscoverForm.scss";
 
-export default function DiscoverForm() {
+export default function DiscoverForm({ postalCode, setPostalCode }) {
   return (
     <form className="discover__form">
       <h3>discover</h3>
@@ -8,6 +8,8 @@ export default function DiscoverForm() {
         type="text"
         className="discover__input"
         placeholder="Enter your postal code.."
+        value={postalCode || "K1N 8R4"}
+        onChange={setPostalCode}
       ></input>
       <select name="type" className="discover__dropdown">
         <option value="thrift">View All</option>
