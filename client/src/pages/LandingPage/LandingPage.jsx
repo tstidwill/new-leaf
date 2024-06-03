@@ -3,9 +3,9 @@ import greenLogo from "../../assets/logos/greenlogo.png";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-export default function LandingPage() {
+export default function LandingPage({ postalCode, setPostalCode }) {
   const navigate = useNavigate();
-  const [postalCode, setPostalCode] = useState("");
+
   const [error, setError] = useState("");
 
   const handleChange = (e) => {
