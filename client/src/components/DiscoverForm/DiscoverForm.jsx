@@ -1,15 +1,35 @@
 import "./DiscoverForm.scss";
 
-export default function DiscoverForm({ postalCode, setPostalCode }) {
+export default function DiscoverForm({
+  postalCode,
+  setPostalCode,
+  postalCodeValidation,
+  error,
+  setError,
+}) {
+  const handlePostalCodeChange = (e) => {
+    setPostalCode(e.target.value);
+    setError("");
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const isValidPostalCode = postalCodeValidation(postalCode);
+    if (isValidPostalCode) {
+      const formattedPostalCode = postalCode.replace(/\s/g, "").toUpperCase();
+      setPostalCode(formattedPostalCode);
+      console.log("updated postal code submitted: ", formattedPostalCode);
+    }
+  };
   return (
-    <form className="discover__form">
+    <form className="discover__form" onSubmit={handleSubmit}>
       <h3>discover</h3>
       <input
         type="text"
         className="discover__input"
         placeholder="Enter your postal code.."
         value={postalCode || "K1N 8R4"}
-        onChange={setPostalCode}
+        onChange={handlePostalCodeChange}
       ></input>
       <select name="type" className="discover__dropdown">
         <option value="thrift">View All</option>
@@ -17,7 +37,10 @@ export default function DiscoverForm({ postalCode, setPostalCode }) {
         <option value="garden">Community Garden</option>
         <option value="thrift">Thrift Store</option>
       </select>
-      <button className="button--square">search</button>
+      <div className="discover__error">{error}</div>
+      <button className="button--square" type="submit">
+        search
+      </button>
     </form>
   );
 }
