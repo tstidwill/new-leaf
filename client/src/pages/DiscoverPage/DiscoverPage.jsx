@@ -8,6 +8,8 @@ export default function DiscoverPage({
   postalCode,
   setPostalCode,
   postalCodeValidation,
+  setSubmittedPostalCode,
+  submittedPostalCode,
   error,
   setError,
 }) {
@@ -18,10 +20,11 @@ export default function DiscoverPage({
           postalCode={postalCode}
           setPostalCode={setPostalCode}
           postalCodeValidation={postalCodeValidation}
+          setSubmittedPostalCode={setSubmittedPostalCode}
           error={error}
           setError={setError}
         />
-        <Map postalCode={postalCode} />
+        <Map submittedPostalCode={submittedPostalCode} />
         <NearYou />
       </main>
       <Footer />

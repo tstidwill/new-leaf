@@ -7,6 +7,7 @@ import { useState } from "react";
 function App() {
   const [postalCode, setPostalCode] = useState("");
   const [error, setError] = useState("");
+  const [submittedPostalCode, setSubmittedPostalCode] = useState("");
 
   const postalCodeValidation = (postalCode) => {
     const postalCodeFormat = /^[A-Za-z]\d[A-Za-z] ?\d[AA-Za-z]\d$/;
@@ -35,6 +36,7 @@ function App() {
               postalCode={postalCode}
               setPostalCode={setPostalCode}
               postalCodeValidation={postalCodeValidation}
+              setSubmittedPostalCode={setSubmittedPostalCode}
               error={error}
               setError={setError}
             />
@@ -47,6 +49,8 @@ function App() {
               postalCode={postalCode}
               setPostalCode={setPostalCode}
               postalCodeValidation={postalCodeValidation}
+              submittedPostalCode={submittedPostalCode}
+              setSubmittedPostalCode={setSubmittedPostalCode}
               error={error}
               setError={setError}
             />
