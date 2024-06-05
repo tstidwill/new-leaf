@@ -4,6 +4,7 @@ export default function DiscoverForm({
   postalCode,
   setPostalCode,
   postalCodeValidation,
+  setSubmittedPostalCode,
   error,
   setError,
 }) {
@@ -18,6 +19,7 @@ export default function DiscoverForm({
     if (isValidPostalCode) {
       const formattedPostalCode = postalCode.replace(/\s/g, "").toUpperCase();
       setPostalCode(formattedPostalCode);
+      setSubmittedPostalCode(formattedPostalCode);
       console.log("updated postal code submitted: ", formattedPostalCode);
     }
   };

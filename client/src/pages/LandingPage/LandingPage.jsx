@@ -6,6 +6,7 @@ export default function LandingPage({
   postalCode,
   setPostalCode,
   postalCodeValidation,
+  setSubmittedPostalCode,
   error,
   setError,
 }) {
@@ -22,6 +23,7 @@ export default function LandingPage({
     if (isValidPostalCode) {
       const formattedPostalCode = postalCode.replace(/\s/g, "").toUpperCase();
       setPostalCode(formattedPostalCode);
+      setSubmittedPostalCode(formattedPostalCode);
       console.log("postal code submitted: ", formattedPostalCode);
       navigate("/discover");
     }

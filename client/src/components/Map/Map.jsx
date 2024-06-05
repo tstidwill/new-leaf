@@ -3,7 +3,7 @@ import "./Map.scss";
 import { GoogleMap, useJsApiLoader } from "@react-google-maps/api";
 import axios from "axios";
 
-export default function Map({ postalCode }) {
+export default function Map({ submittedPostalCode }) {
   const API_KEY = import.meta.env.VITE_GOOGLE_MAPS_API_KEY;
   const [coordinates, setCoordinates] = useState(null);
   const [error, setError] = useState(null);
@@ -14,7 +14,7 @@ export default function Map({ postalCode }) {
   const geocodePostalCode = async () => {
     try {
       const response = await axios.get(
-        `https://maps.googleapis.com/maps/api/geocode/json?address=${postalCode}&key=${API_KEY}`
+        `https://maps.googleapis.com/maps/api/geocode/json?address=${submittedPostalCode}&key=${API_KEY}`
       );
       const data = response.data;
       if (data.results && data.results.length > 0) {
@@ -30,10 +30,10 @@ export default function Map({ postalCode }) {
   };
 
   useEffect(() => {
-    if (postalCode) {
+    if (submittedPostalCode) {
       geocodePostalCode();
     }
-  }, [postalCode]);
+  }, [submittedPostalCode]);
 
   if (loadError) {
     return <div>Error loading map.</div>;
