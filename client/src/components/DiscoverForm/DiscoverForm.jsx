@@ -28,9 +28,10 @@ export default function DiscoverForm({
       <h3>discover</h3>
       <input
         type="text"
+        name="postalcode"
         className="discover__input"
         placeholder="Enter your postal code.."
-        value={postalCode || "K1N 8R4"}
+        value={postalCode}
         onChange={handlePostalCodeChange}
       ></input>
       <select name="type" className="discover__dropdown">
