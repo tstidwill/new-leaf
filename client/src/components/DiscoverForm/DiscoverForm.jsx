@@ -28,6 +28,7 @@ export default function DiscoverForm({
       <h3>discover</h3>
       <input
         type="text"
+        name="postalcode"
         className="discover__input"
         placeholder="Enter your postal code.."
         value={postalCode}
