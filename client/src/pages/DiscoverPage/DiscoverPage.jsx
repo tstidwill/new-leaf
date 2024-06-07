@@ -1,7 +1,6 @@
 import "./DiscoverPage.scss";
 import Footer from "../../components/Footer/Footer";
 import DiscoverForm from "../../components/DiscoverForm/DiscoverForm";
-import NearYou from "../../components/NearYou/NearYou";
 import MapComponent from "../../components/Map/MapComponent";
 
 export default function DiscoverPage({
@@ -25,7 +24,6 @@ export default function DiscoverPage({
           setError={setError}
         />
         <MapComponent submittedPostalCode={submittedPostalCode} />
-        <NearYou />
       </main>
       <Footer />
     </>

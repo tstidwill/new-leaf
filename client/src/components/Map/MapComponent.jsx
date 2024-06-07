@@ -8,6 +8,7 @@ import {
 } from "@vis.gl/react-google-maps";
 import axios from "axios";
 import newleafMarker from "../../assets/icons/newleaf_marker.png";
+import NearYou from "../NearYou/NearYou";
 
 export default function MapComponent({ submittedPostalCode }) {
   const API_KEY = import.meta.env.VITE_GOOGLE_MAPS_API_KEY;
@@ -95,41 +96,44 @@ export default function MapComponent({ submittedPostalCode }) {
   }
 
   return (
-    <APIProvider apiKey={API_KEY}>
-      {coordinates && (
-        <Map
-          className="map-container"
-          center={{ lat: coordinates.lat, lng: coordinates.lng }}
-          defaultZoom={13}
-          mapId={MAP_ID}
-        >
-          {groceryShops &&
-            groceryShops.map((shop, index) => {
-              const { geometry, name } = shop;
-              if (!geometry || !geometry.location) {
-                console.error("Invalid coordinates for shop:", shop);
-                return null;
-              }
-              const { location } = geometry;
-              const { lat, lng } = location;
-              if (!lat || !lng) {
-                console.error("Invalid coordinates for shop:", shop);
-                return null;
-              }
-              return (
-                <AdvancedMarker
-                  key={index}
-                  position={{ lat: lat, lng: lng }}
-                  title={name}
-                  onClick={() => handleMarkerClick(shop)}
-                >
-                  <img src={newleafMarker} className="marker" alt="Marker" />
-                </AdvancedMarker>
-              );
-            })}
-          )}
-        </Map>
-      )}
-    </APIProvider>
+    <>
+      <APIProvider apiKey={API_KEY}>
+        {coordinates && (
+          <Map
+            className="map-container"
+            center={{ lat: coordinates.lat, lng: coordinates.lng }}
+            defaultZoom={13}
+            mapId={MAP_ID}
+          >
+            {groceryShops &&
+              groceryShops.map((shop, index) => {
+                const { geometry, name } = shop;
+                if (!geometry || !geometry.location) {
+                  console.error("Invalid coordinates for shop:", shop);
+                  return null;
+                }
+                const { location } = geometry;
+                const { lat, lng } = location;
+                if (!lat || !lng) {
+                  console.error("Invalid coordinates for shop:", shop);
+                  return null;
+                }
+                return (
+                  <AdvancedMarker
+                    key={index}
+                    position={{ lat: lat, lng: lng }}
+                    title={name}
+                    onClick={() => handleMarkerClick(shop)}
+                  >
+                    <img src={newleafMarker} className="marker" alt="Marker" />
+                  </AdvancedMarker>
+                );
+              })}
+            )
+          </Map>
+        )}
+      </APIProvider>
+      <NearYou groceryShops={groceryShops} />
+    </>
   );
 }
