@@ -1,8 +1,13 @@
 import { useEffect, useState } from "react";
 import "./MapComponent.scss";
-import { APIProvider, Map, AdvancedMarker } from "@vis.gl/react-google-maps";
+import {
+  APIProvider,
+  Map,
+  AdvancedMarker,
+  useAdvancedMarkerRef,
+} from "@vis.gl/react-google-maps";
 import axios from "axios";
-import {} from "@vis.gl/react-google-maps";
+import newleafMarker from "../../assets/icons/newleaf_marker.png";
 
 export default function MapComponent({ submittedPostalCode }) {
   const API_KEY = import.meta.env.VITE_GOOGLE_MAPS_API_KEY;
@@ -12,6 +17,7 @@ export default function MapComponent({ submittedPostalCode }) {
   const [coordinates, setCoordinates] = useState(null);
   const [error, setError] = useState(null);
   const [groceryShops, setGroceryShops] = useState(null);
+  const [markerRef, marker] = useAdvancedMarkerRef();
 
   const geocodePostalCode = async () => {
     console.log("Geocoding...");
@@ -67,6 +73,10 @@ export default function MapComponent({ submittedPostalCode }) {
     }
   };
 
+  const handleMarkerClick = (marker) => {
+    console.log(marker);
+  };
+
   useEffect(() => {
     if (submittedPostalCode) {
       geocodePostalCode();
@@ -111,10 +121,13 @@ export default function MapComponent({ submittedPostalCode }) {
                   key={index}
                   position={{ lat: lat, lng: lng }}
                   title={name}
-                  conte
-                />
+                  onClick={() => handleMarkerClick(shop)}
+                >
+                  <img src={newleafMarker} className="marker" alt="Marker" />
+                </AdvancedMarker>
               );
             })}
+          )}
         </Map>
       )}
     </APIProvider>
