@@ -36,13 +36,35 @@ export default function MapComponent({ submittedPostalCode }) {
     }
   };
 
-  const pullLeaves = async () => {
-    const response = await axios.get(`${API_URL}/leaves`);
-    console.log(`pull leaves url: , ${API_URL}/leaves`);
+  const pullLeaves = async (coordinates) => {
+    try {
+      const response = await axios.get(`${API_URL}/leaves`);
+      console.log(`pull leaves url: , ${API_URL}/leaves`);
 
-    if (response.data.length > 0) {
-      console.log(response.data);
-      setGroceryShops(response.data);
+      if (response.data.length > 0) {
+        console.log(response.data);
+        console.log(coordinates);
+
+        const filteredShops = response.data.filter((shop) => {
+          const latWithinRange =
+            shop.lat >= coordinates.lat - 0.05 &&
+            shop.lat <= coordinates.lat + 0.05;
+          const lngWithinRange =
+            shop.lng >= coordinates.lng - 0.05 &&
+            shop.lng <= coordinates.lng + 0.05;
+          return latWithinRange && lngWithinRange;
+        });
+
+        console.log(`filtered `, filteredShops);
+        setGroceryShops(filteredShops);
+        setError(null);
+      } else {
+        setGroceryShops([]);
+        setError("No shops found");
+      }
+    } catch (error) {
+      setGroceryShops([]);
+      setError("Error fetching shops");
     }
   };
 
@@ -92,7 +114,7 @@ export default function MapComponent({ submittedPostalCode }) {
     if (coordinates) {
       console.log("Coordinates set:", coordinates);
       // searchGroceryStores();
-      pullLeaves();
+      pullLeaves(coordinates);
     }
   }, [coordinates]);
 
