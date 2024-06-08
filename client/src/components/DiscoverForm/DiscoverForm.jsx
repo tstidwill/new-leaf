@@ -17,7 +17,7 @@ export default function DiscoverForm({
 
   const handleTypeChange = (e) => {
     setSelectedType(e.target.value);
-    console.log(`selected type: `, selectedType);
+    setError("");
   };
 
   const handleSubmit = (e) => {
@@ -27,8 +27,6 @@ export default function DiscoverForm({
       const formattedPostalCode = postalCode.replace(/\s/g, "").toUpperCase();
       setPostalCode(formattedPostalCode);
       setSubmittedPostalCode(formattedPostalCode);
-      console.log("updated postal code submitted: ", formattedPostalCode);
-      console.log("type in submit: ", selectedType);
     }
   };
   return (

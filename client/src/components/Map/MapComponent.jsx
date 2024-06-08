@@ -15,23 +15,19 @@ export default function MapComponent({ submittedPostalCode, selectedType }) {
   const [groceryShops, setGroceryShops] = useState(null);
 
   const geocodePostalCode = async () => {
-    console.log("Geocoding...");
     try {
       const response = await axios.get(
         `https://maps.googleapis.com/maps/api/geocode/json?address=${submittedPostalCode}&key=${API_KEY}`
       );
       const data = response.data;
-      console.log("Geocoding results:", data);
       if (data.results && data.results.length > 0) {
         const { lat, lng } = data.results[0].geometry.location;
         setCoordinates({ lat, lng });
-        console.log({ lat, lng });
         setError(null);
       } else {
         setError("No coordinates found for that postal code");
       }
     } catch (error) {
-      console.error("Error fetching geocode data:", error);
       setError("Error fetching geocode data");
     }
   };
@@ -39,12 +35,8 @@ export default function MapComponent({ submittedPostalCode, selectedType }) {
   const pullLeaves = async (coordinates, selectedType) => {
     try {
       const response = await axios.get(`${API_URL}/leaves`);
-      console.log(`pull leaves url: , ${API_URL}/leaves`);
 
       if (response.data.length > 0) {
-        console.log(response.data);
-        console.log(coordinates);
-
         const filteredShops = response.data.filter((shop) => {
           const latWithinRange =
             shop.lat >= coordinates.lat - 0.05 &&
@@ -58,7 +50,6 @@ export default function MapComponent({ submittedPostalCode, selectedType }) {
           return latWithinRange && lngWithinRange && typeMatch;
         });
 
-        console.log(`filtered `, filteredShops);
         setGroceryShops(filteredShops);
         setError(null);
       } else {
@@ -73,6 +64,7 @@ export default function MapComponent({ submittedPostalCode, selectedType }) {
 
   const handleMarkerClick = (marker) => {
     console.log(marker);
+    //to navigate to card
   };
 
   useEffect(() => {
@@ -83,7 +75,6 @@ export default function MapComponent({ submittedPostalCode, selectedType }) {
 
   useEffect(() => {
     if (coordinates) {
-      console.log("Coordinates set:", coordinates);
       pullLeaves(coordinates, selectedType);
     }
   }, [coordinates, selectedType]);
