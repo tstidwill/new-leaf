@@ -11,6 +11,9 @@ const port = process.env.PORT || 8080;
 const API_KEY = process.env.VITE_GOOGLE_MAPS_API_KEY;
 const CORS_ORIGIN = process.env.CORS_ORIGIN || "https://localhost:5174";
 
+const leavesRoutes = require("./routes/leaves-routes");
+app.use("/leaves", leavesRoutes);
+
 app.use(
   cors({
     origin: CORS_ORIGIN,
