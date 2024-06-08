@@ -2,7 +2,7 @@ const express = require("express");
 const cors = require("cors");
 const axios = require("axios");
 const dotenv = require("dotenv");
-const { error } = require("console");
+const leavesRoutes = require("./routes/leaves-routes");
 
 dotenv.config();
 
@@ -11,15 +11,14 @@ const port = process.env.PORT || 8080;
 const API_KEY = process.env.VITE_GOOGLE_MAPS_API_KEY;
 const CORS_ORIGIN = process.env.CORS_ORIGIN || "https://localhost:5174";
 
-const leavesRoutes = require("./routes/leaves-routes");
-app.use("/leaves", leavesRoutes);
-
 app.use(
   cors({
     origin: CORS_ORIGIN,
   })
 );
 app.use(express.json());
+
+app.use("/leaves", leavesRoutes);
 
 app.get("/api", (req, res) => {
   res.send("newleaf server up and running!");
