@@ -2,6 +2,7 @@ import "./DiscoverPage.scss";
 import Footer from "../../components/Footer/Footer";
 import DiscoverForm from "../../components/DiscoverForm/DiscoverForm";
 import MapComponent from "../../components/Map/MapComponent";
+import { useState } from "react";
 
 export default function DiscoverPage({
   postalCode,
@@ -12,6 +13,7 @@ export default function DiscoverPage({
   error,
   setError,
 }) {
+  const [selectedType, setSelectedType] = useState("zero_waste_grocery");
   return (
     <>
       <main className="discover">
@@ -20,10 +22,15 @@ export default function DiscoverPage({
           setPostalCode={setPostalCode}
           postalCodeValidation={postalCodeValidation}
           setSubmittedPostalCode={setSubmittedPostalCode}
+          selectedType={selectedType}
+          setSelectedType={setSelectedType}
           error={error}
           setError={setError}
         />
-        <MapComponent submittedPostalCode={submittedPostalCode} />
+        <MapComponent
+          submittedPostalCode={submittedPostalCode}
+          selectedType={selectedType}
+        />
       </main>
       <Footer />
     </>

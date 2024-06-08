@@ -5,7 +5,7 @@ import axios from "axios";
 import newleafMarker from "../../assets/icons/newleaf_marker.png";
 import NearYou from "../NearYou/NearYou";
 
-export default function MapComponent({ submittedPostalCode }) {
+export default function MapComponent({ submittedPostalCode, selectedType }) {
   const API_KEY = import.meta.env.VITE_GOOGLE_MAPS_API_KEY;
   const API_URL = import.meta.env.VITE_CORS_ORIGIN;
   const MAP_ID = import.meta.env.VITE_GOOGLE_MAPS_MAP_ID;
@@ -36,7 +36,7 @@ export default function MapComponent({ submittedPostalCode }) {
     }
   };
 
-  const pullLeaves = async (coordinates) => {
+  const pullLeaves = async (coordinates, selectedType) => {
     try {
       const response = await axios.get(`${API_URL}/leaves`);
       console.log(`pull leaves url: , ${API_URL}/leaves`);
@@ -52,7 +52,10 @@ export default function MapComponent({ submittedPostalCode }) {
           const lngWithinRange =
             shop.lng >= coordinates.lng - 0.05 &&
             shop.lng <= coordinates.lng + 0.05;
-          return latWithinRange && lngWithinRange;
+
+          const typeMatch =
+            selectedType === "view_all" || shop.type === selectedType;
+          return latWithinRange && lngWithinRange && typeMatch;
         });
 
         console.log(`filtered `, filteredShops);
@@ -68,38 +71,6 @@ export default function MapComponent({ submittedPostalCode }) {
     }
   };
 
-  // const searchGroceryStores = async () => {
-  //   if (!coordinates) return;
-
-  //   try {
-  //     console.log("Searching stores...");
-  //     console.log(`Request URL: ${API_URL}/api/searchGroceryStores`);
-
-  //     const response = await axios.get(`${API_URL}/api/searchGroceryStores`, {
-  //       params: {
-  //         lat: coordinates.lat,
-  //         lng: coordinates.lng,
-  //       },
-  //     });
-
-  //     console.log("Response received from API (response):", response);
-
-  //     if (response.data && response.data.length > 0) {
-  //       console.log("Grocery stores found:", response.data);
-  //       setGroceryShops(response.data);
-  //       setError(null);
-  //     } else {
-  //       console.log("No grocery stores found.");
-  //       setGroceryShops([]);
-  //       setError("No grocery stores found");
-  //     }
-  //   } catch (error) {
-  //     console.error("Error fetching grocery stores:", error);
-  //     setGroceryShops([]);
-  //     setError("Error fetching grocery stores");
-  //   }
-  // };
-
   const handleMarkerClick = (marker) => {
     console.log(marker);
   };
@@ -113,10 +84,9 @@ export default function MapComponent({ submittedPostalCode }) {
   useEffect(() => {
     if (coordinates) {
       console.log("Coordinates set:", coordinates);
-      // searchGroceryStores();
-      pullLeaves(coordinates);
+      pullLeaves(coordinates, selectedType);
     }
-  }, [coordinates]);
+  }, [coordinates, selectedType]);
 
   if (error) {
     return <div>Error: {error}</div>;
@@ -145,31 +115,6 @@ export default function MapComponent({ submittedPostalCode }) {
                   </AdvancedMarker>
                 );
               })}
-            {/* {groceryShops &&
-              groceryShops.map((shop, index) => {
-                const { geometry, name } = shop;
-                if (!geometry || !geometry.location) {
-                  console.error("Invalid coordinates for shop:", shop);
-                  return null;
-                }
-                const { location } = geometry;
-                const { lat, lng } = location;
-                if (!lat || !lng) {
-                  console.error("Invalid coordinates for shop:", shop);
-                  return null;
-                }
-                return (
-                  <AdvancedMarker
-                    key={index}
-                    position={{ lat: lat, lng: lng }}
-                    title={name}
-                    onClick={() => handleMarkerClick(shop)}
-                  >
-                    <img src={newleafMarker} className="marker" alt="Marker" />
-                  </AdvancedMarker>
-                );
-              })} */}
-            {/* ) */}
           </Map>
         )}
       </APIProvider>
