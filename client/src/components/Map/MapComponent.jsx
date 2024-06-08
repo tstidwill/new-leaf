@@ -1,11 +1,6 @@
 import { useEffect, useState } from "react";
 import "./MapComponent.scss";
-import {
-  APIProvider,
-  Map,
-  AdvancedMarker,
-  useAdvancedMarkerRef,
-} from "@vis.gl/react-google-maps";
+import { APIProvider, Map, AdvancedMarker } from "@vis.gl/react-google-maps";
 import axios from "axios";
 import newleafMarker from "../../assets/icons/newleaf_marker.png";
 import NearYou from "../NearYou/NearYou";
@@ -18,7 +13,6 @@ export default function MapComponent({ submittedPostalCode }) {
   const [coordinates, setCoordinates] = useState(null);
   const [error, setError] = useState(null);
   const [groceryShops, setGroceryShops] = useState(null);
-  const [markerRef, marker] = useAdvancedMarkerRef();
 
   const geocodePostalCode = async () => {
     console.log("Geocoding...");
