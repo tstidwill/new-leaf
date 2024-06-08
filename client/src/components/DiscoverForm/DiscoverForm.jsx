@@ -5,11 +5,18 @@ export default function DiscoverForm({
   setPostalCode,
   postalCodeValidation,
   setSubmittedPostalCode,
+  selectedType,
+  setSelectedType,
   error,
   setError,
 }) {
   const handlePostalCodeChange = (e) => {
     setPostalCode(e.target.value);
+    setError("");
+  };
+
+  const handleTypeChange = (e) => {
+    setSelectedType(e.target.value);
     setError("");
   };
 
@@ -20,7 +27,6 @@ export default function DiscoverForm({
       const formattedPostalCode = postalCode.replace(/\s/g, "").toUpperCase();
       setPostalCode(formattedPostalCode);
       setSubmittedPostalCode(formattedPostalCode);
-      console.log("updated postal code submitted: ", formattedPostalCode);
     }
   };
   return (
@@ -34,9 +40,14 @@ export default function DiscoverForm({
         value={postalCode}
         onChange={handlePostalCodeChange}
       ></input>
-      <select name="type" className="discover__dropdown">
-        <option value="thrift">View All</option>
-        <option value="grocery">Zero Waste Grocery</option>
+      <select
+        name="type"
+        className="discover__dropdown"
+        value={selectedType}
+        onChange={handleTypeChange}
+      >
+        <option value="view_all">View All</option>
+        <option value="zero_waste_grocery">Zero Waste Grocery</option>
         <option value="garden">Community Garden</option>
         <option value="thrift">Thrift Store</option>
       </select>

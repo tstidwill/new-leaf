@@ -41,7 +41,7 @@ export default function LandingPage({
             <h1 className="landingpage__header">new leaf</h1>
           </div>
           <div className="landingpage__cta">
-            <h5>sustaible living at your fingertips</h5>
+            <h5>sustainable living at your fingertips</h5>
             <form className="landingpage__form" onSubmit={handleSubmit}>
               <input
                 type="text"
