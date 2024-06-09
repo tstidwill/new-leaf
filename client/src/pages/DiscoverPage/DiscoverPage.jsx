@@ -13,7 +13,7 @@ export default function DiscoverPage({
   error,
   setError,
 }) {
-  const [selectedType, setSelectedType] = useState("zero_waste_grocery");
+  const [selectedType, setSelectedType] = useState("view_all");
   return (
     <>
       <main className="discover">
