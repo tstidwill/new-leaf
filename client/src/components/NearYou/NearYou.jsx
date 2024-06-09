@@ -3,12 +3,12 @@ import groceryImage from "../../assets/images/pexels-sarah-chai-7263016.jpg";
 import thriftImage from "../../assets/images/pexels-cottonbro-6068960.jpg";
 import gardenImage from "../../assets/images/pexels-markusspiske-2847908.jpg";
 
-export default function NearYou({ groceryShops }) {
+export default function NearYou({ leaves }) {
   return (
     <section className="nearyou">
       <h3 className="nearyou__header">near you</h3>
-      {groceryShops &&
-        groceryShops.map((shop) => (
+      {leaves &&
+        leaves.map((shop) => (
           <section key={shop.id} className="nearyou__card">
             <div className="nearyou__text">
               <h4>{shop.name}</h4>

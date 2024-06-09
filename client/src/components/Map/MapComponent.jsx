@@ -12,7 +12,7 @@ export default function MapComponent({ submittedPostalCode, selectedType }) {
 
   const [coordinates, setCoordinates] = useState(null);
   const [error, setError] = useState(null);
-  const [groceryShops, setGroceryShops] = useState(null);
+  const [leaves, setLeaves] = useState(null);
 
   const geocodePostalCode = async () => {
     try {
@@ -23,6 +23,7 @@ export default function MapComponent({ submittedPostalCode, selectedType }) {
       if (data.results && data.results.length > 0) {
         const { lat, lng } = data.results[0].geometry.location;
         setCoordinates({ lat, lng });
+        console.log(`coords: `, coordinates);
         setError(null);
       } else {
         setError("No coordinates found for that postal code");
@@ -52,32 +53,33 @@ export default function MapComponent({ submittedPostalCode, selectedType }) {
     }
   };
 
-  const pullLeaves = async (coordinates, selectedType) => {
+  const getLocationsWithinDistance = async (coordinates, selectedType) => {
     try {
       const response = await axios.get(`${API_URL}/leaves`);
 
       if (response.data.length > 0) {
         const filteredShops = response.data.filter((shop) => {
           const latWithinRange =
-            shop.lat >= coordinates.lat - 0.05 &&
-            shop.lat <= coordinates.lat + 0.05;
+            shop.lat >= coordinates.lat - 0.01 &&
+            shop.lat <= coordinates.lat + 0.01;
           const lngWithinRange =
-            shop.lng >= coordinates.lng - 0.05 &&
-            shop.lng <= coordinates.lng + 0.05;
+            shop.lng >= coordinates.lng - 0.01 &&
+            shop.lng <= coordinates.lng + 0.01;
 
           const typeMatch =
             selectedType === "view_all" || shop.type === selectedType;
           return latWithinRange && lngWithinRange && typeMatch;
         });
 
-        setGroceryShops(filteredShops);
+        setLeaves(filteredShops);
+        console.log(`leaves set: `, filteredShops);
         setError(null);
       } else {
-        setGroceryShops([]);
+        setLeaves([]);
         setError("No shops found");
       }
     } catch (error) {
-      setGroceryShops([]);
+      setLeaves([]);
       setError("Error fetching shops");
     }
   };
@@ -99,7 +101,7 @@ export default function MapComponent({ submittedPostalCode, selectedType }) {
         try {
           await getThriftStores(coordinates);
           await getCommunityGardens(coordinates);
-          pullLeaves(coordinates, selectedType);
+          getLocationsWithinDistance(coordinates, selectedType);
         } catch (error) {
           setError("Error fetching data");
         }
@@ -111,15 +113,20 @@ export default function MapComponent({ submittedPostalCode, selectedType }) {
   return (
     <>
       <APIProvider apiKey={API_KEY}>
+        {!coordinates && (
+          <div className="map-container">
+            <p>Please enter a postal code above</p>
+          </div>
+        )}
         {coordinates && (
           <Map
             className="map-container"
             center={{ lat: coordinates.lat, lng: coordinates.lng }}
-            defaultZoom={13}
+            defaultZoom={14}
             mapId={MAP_ID}
           >
-            {groceryShops &&
-              groceryShops.map((shop) => {
+            {leaves &&
+              leaves.map((shop) => {
                 return (
                   <AdvancedMarker
                     key={shop.id}
@@ -134,7 +141,7 @@ export default function MapComponent({ submittedPostalCode, selectedType }) {
           </Map>
         )}
       </APIProvider>
-      <NearYou groceryShops={groceryShops} />
+      <NearYou leaves={leaves} />
     </>
   );
 }
