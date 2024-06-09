@@ -24,7 +24,7 @@ app.get("/api", (req, res) => {
   res.send("newleaf server up and running!");
 });
 
-app.get("/api/searchGroceryStores", async (req, res) => {
+app.get("/api/searchThriftShops", async (req, res) => {
   const { lat, lng } = req.query;
 
   if (!lat || !lng) {
@@ -38,8 +38,8 @@ app.get("/api/searchGroceryStores", async (req, res) => {
         params: {
           key: API_KEY,
           location: `${lat},${lng}`,
-          radius: 1000,
-          query: "zero waste grocery store",
+          radius: 5000,
+          query: "thrift Shop",
         },
       }
     );
