@@ -94,21 +94,19 @@ export default function MapComponent({ submittedPostalCode, selectedType }) {
   }, [submittedPostalCode]);
 
   useEffect(() => {
-    if (coordinates) {
-      getThriftStores(coordinates);
-      getCommunityGardens(coordinates);
-    }
-  }, [coordinates]);
-
-  useEffect(() => {
-    if (coordinates) {
-      pullLeaves(coordinates, selectedType);
-    }
+    const fetchData = async () => {
+      if (coordinates) {
+        try {
+          await getThriftStores(coordinates);
+          await getCommunityGardens(coordinates);
+          pullLeaves(coordinates, selectedType);
+        } catch (error) {
+          setError("Error fetching data");
+        }
+      }
+    };
+    fetchData();
   }, [coordinates, selectedType]);
-
-  if (error) {
-    return <div>Error: {error}</div>;
-  }
 
   return (
     <>
