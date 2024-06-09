@@ -52,18 +52,70 @@ app.get("/api/searchThriftStores", async (req, res) => {
       (result) => !existingPlaceIds.includes(result.place_id)
     );
 
-    await knex("leaves").insert(
-      uniquePlaceIds.map((result) => ({
-        type: "thrift",
-        address: result.formatted_address,
-        lat: result.geometry.location.lat,
-        lng: result.geometry.location.lng,
-        description: result.name,
-        website: result.website,
-        name: result.name,
-        place_id: result.place_id,
-      }))
+    if (uniquePlaceIds.length > 0) {
+      await knex("leaves").insert(
+        uniquePlaceIds.map((result) => ({
+          type: "thrift",
+          address: result.formatted_address,
+          lat: result.geometry.location.lat,
+          lng: result.geometry.location.lng,
+          description: result.name,
+          website: result.website,
+          name: result.name,
+          place_id: result.place_id,
+        }))
+      );
+    }
+
+    res.json(uniquePlaceIds);
+  } catch (error) {
+    console.error("error fetching and saving: ", error);
+    res.status(500).json({ error: `Error fetching grocery stores` });
+  }
+});
+
+app.get("/api/searchCommunityGardens", async (req, res) => {
+  const { lat, lng } = req.query;
+
+  if (!lat || !lng) {
+    return res.status(400).json({ error: "coordinates required" });
+  }
+
+  try {
+    const response = await axios.get(
+      `https://maps.googleapis.com/maps/api/place/textsearch/json`,
+      {
+        params: {
+          key: API_KEY,
+          location: `${lat},${lng}`,
+          radius: 5000,
+          query: "community garden",
+        },
+      }
     );
+
+    const results = response.data.results;
+
+    const existingPlaceIds = await knex("leaves").pluck("place_id");
+    const uniquePlaceIds = results.filter(
+      (result) => !existingPlaceIds.includes(result.place_id)
+    );
+
+    if (uniquePlaceIds.length > 0) {
+      await knex("leaves").insert(
+        uniquePlaceIds.map((result) => ({
+          type: "garden",
+          address: result.formatted_address,
+          lat: result.geometry.location.lat,
+          lng: result.geometry.location.lng,
+          description: result.name,
+          website: result.website,
+          name: result.name,
+          place_id: result.place_id,
+        }))
+      );
+    }
+
     res.json(uniquePlaceIds);
   } catch (error) {
     console.error("error fetching and saving: ", error);
