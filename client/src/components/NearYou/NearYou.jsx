@@ -11,10 +11,10 @@ export default function NearYou({ groceryShops }) {
         groceryShops.map((shop) => (
           <section key={shop.id} className="nearyou__card">
             <div className="nearyou__text">
-              <h3>{shop.name}</h3>
-              <div>
-                <h5>{shop.address}</h5>
-              </div>
+              <h4>{shop.name}</h4>
+
+              <p className="nearyou__address">{shop.address}</p>
+
               <p>{shop.description}</p>
               <a
                 className="nearyou__button button--square"
