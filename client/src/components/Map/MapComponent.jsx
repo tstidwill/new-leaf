@@ -32,6 +32,16 @@ export default function MapComponent({ submittedPostalCode, selectedType }) {
     }
   };
 
+  const getThriftStores = async (coordinates) => {
+    try {
+      await axios.get(
+        `${API_URL}/api/searchThriftStores?lat=${coordinates.lat}&lng=${coordinates.lng}`
+      );
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   const pullLeaves = async (coordinates, selectedType) => {
     try {
       const response = await axios.get(`${API_URL}/leaves`);
@@ -72,6 +82,12 @@ export default function MapComponent({ submittedPostalCode, selectedType }) {
       geocodePostalCode();
     }
   }, [submittedPostalCode]);
+
+  useEffect(() => {
+    if (coordinates) {
+      getThriftStores(coordinates);
+    }
+  }, [coordinates]);
 
   useEffect(() => {
     if (coordinates) {

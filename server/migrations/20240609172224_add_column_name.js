@@ -3,13 +3,8 @@
  * @returns { Promise<void> }
  */
 exports.up = function (knex) {
-  return knex.schema.createTable("leaves", (table) => {
-    table.increments("id").primary();
+  return knex.schema.alterTable("leaves", (table) => {
     table.string("name").notNullable();
-    table.float("lat").notNullable();
-    table.float("long").notNullable();
-    table.string("address").notNullable();
-    table.string("description").notNullable();
   });
 };
 

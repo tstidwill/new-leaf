@@ -13,8 +13,7 @@ export default function NearYou({ groceryShops }) {
             <div className="nearyou__text">
               <h3>{shop.name}</h3>
               <div>
-                <h5>{shop.address1}</h5>
-                <h5>{shop.address2}</h5>
+                <h5>{shop.address}</h5>
               </div>
               <p>{shop.description}</p>
               <a
