@@ -47,8 +47,13 @@ app.get("/api/searchThriftStores", async (req, res) => {
 
     const results = response.data.results;
 
+    const existingPlaceIds = await knex("leaves").pluck("place_id");
+    const uniquePlaceIds = results.filter(
+      (result) => !existingPlaceIds.includes(result.place_id)
+    );
+
     await knex("leaves").insert(
-      results.map((result) => ({
+      uniquePlaceIds.map((result) => ({
         type: "thrift",
         address: result.formatted_address,
         lat: result.geometry.location.lat,
@@ -56,9 +61,10 @@ app.get("/api/searchThriftStores", async (req, res) => {
         description: result.name,
         website: result.website,
         name: result.name,
+        place_id: result.place_id,
       }))
     );
-    res.json(results);
+    res.json(uniquePlaceIds);
   } catch (error) {
     console.error("error fetching and saving: ", error);
     res.status(500).json({ error: `Error fetching grocery stores` });

@@ -7,6 +7,7 @@ module.exports = [
     address: "143 Main St, Ottawa, ON K1S 5V9, Canada",
     description: "Ontario's first zero-waste grocery store",
     website: "https://nugrocery.com/",
+    place_id: "ChIJCZE6PMwFzkwRdJ-cyvoqC-U",
   },
   {
     name: "terra20",
@@ -17,6 +18,7 @@ module.exports = [
     description:
       "We make it easier to find healthy and sustainable lifestyle products.",
     website: "https://terra20.com/",
+    place_id: "ChIJh-yM6HUFzkwRc8ELMJ8VbrQ",
   },
   {
     id: 3,
@@ -28,6 +30,7 @@ module.exports = [
     description:
       "We make it easier to find healthy and sustainable lifestyle products.Ontario's first zero-waste grocery store",
     website: "https://terra20.com/",
+    place_id: "ChIJYecPiC8PzkwReG46zicZmAI",
   },
   {
     id: 4,
@@ -39,5 +42,6 @@ module.exports = [
     description:
       "Canadian made goods and organic products that are good for you and our planet.",
     website: "https://alleco.ca/",
+    place_id: "ChIJN_n15VsFzkwRAp0sfHALlDI",
   },
 ];
