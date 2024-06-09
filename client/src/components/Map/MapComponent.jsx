@@ -42,6 +42,16 @@ export default function MapComponent({ submittedPostalCode, selectedType }) {
     }
   };
 
+  const getCommunityGardens = async (coordinates) => {
+    try {
+      await axios.get(
+        `${API_URL}/api/searchCommunityGardens?lat=${coordinates.lat}&lng=${coordinates.lng}`
+      );
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   const pullLeaves = async (coordinates, selectedType) => {
     try {
       const response = await axios.get(`${API_URL}/leaves`);
@@ -86,6 +96,7 @@ export default function MapComponent({ submittedPostalCode, selectedType }) {
   useEffect(() => {
     if (coordinates) {
       getThriftStores(coordinates);
+      getCommunityGardens(coordinates);
     }
   }, [coordinates]);
 
