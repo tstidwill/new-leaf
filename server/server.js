@@ -4,6 +4,7 @@ const axios = require("axios");
 const dotenv = require("dotenv");
 const knex = require("knex")(require("./knexfile"));
 const leavesRoutes = require("./routes/leaves-routes");
+const eventsRoutes = require("./routes/events-routes");
 
 dotenv.config();
 
@@ -20,6 +21,7 @@ app.use(
 app.use(express.json());
 
 app.use("/leaves", leavesRoutes);
+app.use("/events", eventsRoutes);
 
 app.get("/api", (req, res) => {
   res.send("newleaf server up and running!");
