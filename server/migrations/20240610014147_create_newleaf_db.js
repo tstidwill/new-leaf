@@ -8,8 +8,8 @@ exports.up = function (knex) {
     table.increments("id").primary();
     table.string("type").notNullable();
     table.string("address").notNullable();
-    table.decimal("lat").notNullable();
-    table.decimal("lng").notNullable();
+    table.float("lat").notNullable();
+    table.float("lng").notNullable();
     table.string("description");
     table.string("website");
     table.string("place_id");
