@@ -7,10 +7,11 @@ exports.up = function (knex) {
     table.increments("id").primary();
     table.string("name").notNullable();
     table.string("date").notNullable();
-    table.string("time").notNullable();
-    table.string("location").notNullable();
+    table.string("time");
+    table.string("location");
     table.string("city").notNullable();
-    table.string("organizer").notNullable();
+    table.string("organizer");
+    table.string("link");
   });
 };
 
