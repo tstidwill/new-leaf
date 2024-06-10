@@ -39,7 +39,7 @@ app.get("/api/searchThriftStores", async (req, res) => {
         params: {
           key: API_KEY,
           location: `${lat},${lng}`,
-          radius: 5000,
+          radius: 1000,
           query: "thrift",
         },
       }
@@ -88,7 +88,7 @@ app.get("/api/searchCommunityGardens", async (req, res) => {
         params: {
           key: API_KEY,
           location: `${lat},${lng}`,
-          radius: 5000,
+          radius: 1000,
           query: "community garden",
         },
       }

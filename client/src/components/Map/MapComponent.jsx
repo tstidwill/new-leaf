@@ -1,6 +1,12 @@
 import { useEffect, useState } from "react";
 import "./MapComponent.scss";
-import { APIProvider, Map, AdvancedMarker } from "@vis.gl/react-google-maps";
+import {
+  APIProvider,
+  Map,
+  AdvancedMarker,
+  InfoWindow,
+  useAdvancedMarkerRef,
+} from "@vis.gl/react-google-maps";
 import axios from "axios";
 import newleafMarker from "../../assets/icons/newleaf_marker.png";
 import NearYou from "../NearYou/NearYou";
@@ -10,9 +16,11 @@ export default function MapComponent({ submittedPostalCode, selectedType }) {
   const API_URL = import.meta.env.VITE_CORS_ORIGIN;
   const MAP_ID = import.meta.env.VITE_GOOGLE_MAPS_MAP_ID;
 
+  const [markerRef, marker] = useAdvancedMarkerRef();
   const [coordinates, setCoordinates] = useState(null);
   const [error, setError] = useState(null);
-  const [groceryShops, setGroceryShops] = useState(null);
+  const [leaves, setLeaves] = useState(null);
+  const [selectedShop, setSelectedShop] = useState(null);
 
   const geocodePostalCode = async () => {
     try {
@@ -23,6 +31,7 @@ export default function MapComponent({ submittedPostalCode, selectedType }) {
       if (data.results && data.results.length > 0) {
         const { lat, lng } = data.results[0].geometry.location;
         setCoordinates({ lat, lng });
+        console.log(`coords: `, coordinates);
         setError(null);
       } else {
         setError("No coordinates found for that postal code");
@@ -52,39 +61,40 @@ export default function MapComponent({ submittedPostalCode, selectedType }) {
     }
   };
 
-  const pullLeaves = async (coordinates, selectedType) => {
+  const getLocationsWithinDistance = async (coordinates, selectedType) => {
     try {
       const response = await axios.get(`${API_URL}/leaves`);
 
       if (response.data.length > 0) {
         const filteredShops = response.data.filter((shop) => {
           const latWithinRange =
-            shop.lat >= coordinates.lat - 0.05 &&
-            shop.lat <= coordinates.lat + 0.05;
+            shop.lat >= coordinates.lat - 0.01 &&
+            shop.lat <= coordinates.lat + 0.01;
           const lngWithinRange =
-            shop.lng >= coordinates.lng - 0.05 &&
-            shop.lng <= coordinates.lng + 0.05;
+            shop.lng >= coordinates.lng - 0.01 &&
+            shop.lng <= coordinates.lng + 0.01;
 
           const typeMatch =
             selectedType === "view_all" || shop.type === selectedType;
           return latWithinRange && lngWithinRange && typeMatch;
         });
 
-        setGroceryShops(filteredShops);
+        setLeaves(filteredShops);
+        console.log(`leaves set: `, filteredShops);
         setError(null);
       } else {
-        setGroceryShops([]);
+        setLeaves([]);
         setError("No shops found");
       }
     } catch (error) {
-      setGroceryShops([]);
+      setLeaves([]);
       setError("Error fetching shops");
     }
   };
 
-  const handleMarkerClick = (marker) => {
+  const handleMarkerClick = (shop) => {
     console.log(marker);
-    //to navigate to card
+    setSelectedShop(shop);
   };
 
   useEffect(() => {
@@ -94,34 +104,38 @@ export default function MapComponent({ submittedPostalCode, selectedType }) {
   }, [submittedPostalCode]);
 
   useEffect(() => {
-    if (coordinates) {
-      getThriftStores(coordinates);
-      getCommunityGardens(coordinates);
-    }
-  }, [coordinates]);
-
-  useEffect(() => {
-    if (coordinates) {
-      pullLeaves(coordinates, selectedType);
-    }
+    const fetchData = async () => {
+      if (coordinates) {
+        try {
+          await getThriftStores(coordinates);
+          await getCommunityGardens(coordinates);
+          getLocationsWithinDistance(coordinates, selectedType);
+        } catch (error) {
+          setError("Error fetching data");
+        }
+      }
+    };
+    fetchData();
   }, [coordinates, selectedType]);
-
-  if (error) {
-    return <div>Error: {error}</div>;
-  }
 
   return (
     <>
       <APIProvider apiKey={API_KEY}>
+        {!coordinates && (
+          <div className="map-container">
+            <p>Please enter a postal code above</p>
+          </div>
+        )}
         {coordinates && (
           <Map
             className="map-container"
             center={{ lat: coordinates.lat, lng: coordinates.lng }}
-            defaultZoom={13}
+            defaultZoom={14}
             mapId={MAP_ID}
           >
-            {groceryShops &&
-              groceryShops.map((shop) => {
+            {leaves &&
+              leaves.map((shop) => {
+                console.log(`marker made`, shop);
                 return (
                   <AdvancedMarker
                     key={shop.id}
@@ -133,10 +147,18 @@ export default function MapComponent({ submittedPostalCode, selectedType }) {
                   </AdvancedMarker>
                 );
               })}
+            {selectedShop && (
+              <InfoWindow
+                position={{ lat: selectedShop.lat, lng: selectedShop.lng }}
+                onCloseClick={() => setSelectedShop(null)}
+              >
+                <p>{selectedShop.name}</p>
+              </InfoWindow>
+            )}
           </Map>
         )}
       </APIProvider>
-      <NearYou groceryShops={groceryShops} />
+      <NearYou leaves={leaves} />
     </>
   );
 }
