@@ -1,4 +1,3 @@
-// import seed data files, arrays of objects
 const eventsData = require("../seed-data/events");
 
 exports.seed = async function (knex) {
