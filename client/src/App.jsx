@@ -2,6 +2,7 @@ import "./App.scss";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import LandingPage from "./pages/LandingPage/LandingPage";
 import DiscoverPage from "./pages/DiscoverPage/DiscoverPage";
+import EventsPage from "./pages/EventsPage/EventsPage";
 import { useState } from "react";
 
 function App() {
@@ -56,6 +57,7 @@ function App() {
             />
           }
         />
+        <Route path="/events" element={<EventsPage />} />
       </Routes>
     </BrowserRouter>
   );
