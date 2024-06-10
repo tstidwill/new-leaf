@@ -19,7 +19,7 @@ export default function Footer() {
           <h6>home</h6>
         </div>
       </NavLink>
-      <NavLink to="/" className="footer__text">
+      <NavLink to="/events" className="footer__text">
         <div className="footer__logocontainer">
           <img
             src={calendarIcon}
