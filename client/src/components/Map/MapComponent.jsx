@@ -135,11 +135,14 @@ export default function MapComponent({ submittedPostalCode, selectedType }) {
           >
             {leaves &&
               leaves.map((shop) => {
+                const lat = parseFloat(shop.lat);
+                const lng = parseFloat(shop.lng);
+
                 console.log(`marker made`, shop);
                 return (
                   <AdvancedMarker
                     key={shop.id}
-                    position={{ lat: shop.lat, lng: shop.lng }}
+                    position={{ lat, lng }}
                     title={shop.name}
                     onClick={() => handleMarkerClick(shop)}
                   >
