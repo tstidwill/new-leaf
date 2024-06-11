@@ -124,12 +124,12 @@ export default function MapComponent({ submittedPostalCode, selectedType }) {
   return (
     <>
       <APIProvider apiKey={API_KEY}>
-        {loading && (
+        {loading && coordinates && (
           <div className="map-container">
             <p>Loading...</p>
           </div>
         )}
-        {!coordinates && !loading && (
+        {!coordinates && (
           <div className="map-container">
             <p>Please enter a postal code above</p>
           </div>
