@@ -47,7 +47,7 @@ DB_NAME=new_leaf
 VITE_GOOGLE_MAPS_API_KEY=your_api_key
 ```
 
-- server: npm i, npx knex migrate:latest, npm knex seed:run, node server.js,
+- server: npm i, npx knex migrate:latest, npx knex seed:run, node server.js,
   
 - client: npm i , npm run dev
   
