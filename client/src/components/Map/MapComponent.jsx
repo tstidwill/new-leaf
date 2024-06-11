@@ -4,7 +4,6 @@ import {
   APIProvider,
   Map,
   AdvancedMarker,
-  InfoWindow,
   useAdvancedMarkerRef,
 } from "@vis.gl/react-google-maps";
 import axios from "axios";
@@ -20,7 +19,6 @@ export default function MapComponent({ submittedPostalCode, selectedType }) {
   const [coordinates, setCoordinates] = useState(null);
   const [error, setError] = useState(null);
   const [leaves, setLeaves] = useState(null);
-  const [selectedShop, setSelectedShop] = useState(null);
   const [loading, setLoading] = useState(true);
 
   const geocodePostalCode = async () => {
@@ -91,10 +89,6 @@ export default function MapComponent({ submittedPostalCode, selectedType }) {
     }
   };
 
-  const handleMarkerClick = (shop) => {
-    setSelectedShop(shop);
-  };
-
   useEffect(() => {
     if (submittedPostalCode) {
       geocodePostalCode();
@@ -154,14 +148,6 @@ export default function MapComponent({ submittedPostalCode, selectedType }) {
                   </AdvancedMarker>
                 );
               })}
-            {selectedShop && (
-              <InfoWindow
-                position={{ lat: selectedShop.lat, lng: selectedShop.lng }}
-                onCloseClick={() => setSelectedShop(null)}
-              >
-                <p>{selectedShop.name}</p>
-              </InfoWindow>
-            )}
           </Map>
         )}
       </APIProvider>
