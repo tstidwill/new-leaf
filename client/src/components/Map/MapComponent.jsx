@@ -129,7 +129,7 @@ export default function MapComponent({ submittedPostalCode, selectedType }) {
             <p>Loading...</p>
           </div>
         )}
-        {!coordinates && (
+        {!submittedPostalCode && (
           <div className="map-container">
             <p>Please enter a postal code above</p>
           </div>
