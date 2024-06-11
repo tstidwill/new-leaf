@@ -19,6 +19,12 @@ Those interested in living more sustainably looking for shops & resources near t
 - As a user, I want to be able to find the closest community garden(s), thrift store(s), and/or zero-waste grocery store(s) to a location
 - As a user I want to be able to find events near me
 
+## To Run
+
+- npx knex:migrate latest
+- client: npm run dev
+- server: node server.js
+
 ## Implementation
 
 ### Tech Stack
