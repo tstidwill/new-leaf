@@ -21,9 +21,36 @@ Those interested in living more sustainably looking for shops & resources near t
 
 ## To Run
 
-- npx knex:migrate latest
-- client: npm run dev
-- server: node server.js
+You will need a Google Maps API Key:
+https://developers.google.com/maps/documentation/embed/get-api-key
+
+and to create a MapID:
+https://developers.google.com/maps/documentation/get-map-id
+(default Raster, I called my map newleaf)
+
+client .env sample:
+```
+VITE_GOOGLE_MAPS_API_KEY=your_api_key
+VITE_GOOGLE_MAPS_MAP_ID=your_map_id
+VITE_CORS_ORIGIN = http://localhost:8080
+```
+
+server .env sample:
+```
+CORS_ORIGIN = http://localhost:5173
+PORT=8080
+
+DB_HOST=127.0.0.1
+DB_USER=
+DB_PASSWORD=
+DB_NAME=new_leaf
+VITE_GOOGLE_MAPS_API_KEY=your_api_key
+```
+
+- server: npm i, node server.js, npx knex migrate:latest
+  
+- client: npm i , npm run dev
+  
 
 ## Implementation
 
@@ -134,6 +161,7 @@ Response:
 
 ## Next Steps
 
+- Deploy to new-leaf.info 
 - Connect to Google Places Details to fetch more location data
 - Add location functionality to events
 - Add sorting and filtering to events
