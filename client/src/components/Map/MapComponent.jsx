@@ -32,7 +32,6 @@ export default function MapComponent({ submittedPostalCode, selectedType }) {
       if (data.results && data.results.length > 0) {
         const { lat, lng } = data.results[0].geometry.location;
         setCoordinates({ lat, lng });
-        console.log(`coords: `, coordinates);
         setError(null);
       } else {
         setError("No coordinates found for that postal code");
@@ -48,7 +47,7 @@ export default function MapComponent({ submittedPostalCode, selectedType }) {
         `${API_URL}/api/searchThriftStores?lat=${coordinates.lat}&lng=${coordinates.lng}`
       );
     } catch (error) {
-      console.log(error);
+      setError("Error fetching thrift shops");
     }
   };
 
@@ -58,7 +57,7 @@ export default function MapComponent({ submittedPostalCode, selectedType }) {
         `${API_URL}/api/searchCommunityGardens?lat=${coordinates.lat}&lng=${coordinates.lng}`
       );
     } catch (error) {
-      console.log(error);
+      setError("Error fetching community gardens");
     }
   };
 
@@ -81,7 +80,6 @@ export default function MapComponent({ submittedPostalCode, selectedType }) {
         });
 
         setLeaves(filteredShops);
-        console.log(`leaves set: `, filteredShops);
         setError(null);
       } else {
         setLeaves([]);
@@ -94,7 +92,6 @@ export default function MapComponent({ submittedPostalCode, selectedType }) {
   };
 
   const handleMarkerClick = (shop) => {
-    console.log(marker);
     setSelectedShop(shop);
   };
 
@@ -146,7 +143,6 @@ export default function MapComponent({ submittedPostalCode, selectedType }) {
                 const lat = parseFloat(shop.lat);
                 const lng = parseFloat(shop.lng);
 
-                console.log(`marker made`, shop);
                 return (
                   <AdvancedMarker
                     key={shop.id}

@@ -20,15 +20,6 @@ module.exports = [
     type: "park_cleanup",
   },
   {
-    name: "Love your Lakes",
-    date: "Aug 2024",
-    location: "Sunnyside Beach",
-    city: "Toronto",
-    organizer: "A Greener Future",
-    link: "https://www.eventbrite.ca/e/love-your-lakes-litter-cleanup-in-toronto-tickets-867487948807",
-    type: "water_cleanup",
-  },
-  {
     name: "Windfields Park Tree Planting Event",
     date: "June 13, 2024",
     location: "Windfields Park",
@@ -36,5 +27,14 @@ module.exports = [
     organizer: "City of Toronto",
     link: "https://www.toronto.ca/community-people/get-involved/volunteer-with-the-city/tree-planting-stewardship/",
     type: "tree_planting",
+  },
+  {
+    name: "Love your Lakes",
+    date: "June 22, 2024",
+    location: "Sunnyside Beach",
+    city: "Toronto",
+    organizer: "A Greener Future",
+    link: "https://www.eventbrite.ca/e/love-your-lakes-litter-cleanup-in-toronto-tickets-867487948807",
+    type: "water_cleanup",
   },
 ];
