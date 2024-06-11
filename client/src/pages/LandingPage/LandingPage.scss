@@ -1,0 +1,105 @@
+@use "../../styles/partials/variables" as *;
+
+@keyframes shake {
+  0% {
+    transform: translateX(0);
+  }
+  25% {
+    transform: translateX(-5px);
+  }
+  50% {
+    transform: translateX(5px);
+  }
+  75% {
+    transform: translateX(-5px);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
+.landingpage {
+  background-color: $primary-light;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+
+  &__logobox {
+    height: 10vh;
+    padding: 0.75rem 0;
+  }
+
+  &__body {
+    height: 90vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 5rem;
+  }
+
+  &__caption {
+    position: relative;
+  }
+
+  &__header {
+    text-align: center;
+  }
+
+  &__subheader {
+    color: $primary-midtone;
+    position: absolute;
+    bottom: 35px;
+    left: -30px;
+  }
+
+  &__cta {
+    text-align: center;
+    min-width: 80%;
+  }
+
+  &__form {
+    display: flex;
+    flex-direction: column;
+  }
+
+  &__input {
+    border: 1.5px solid $primary-midtone;
+    border-radius: 50px;
+    height: 3rem;
+    padding: 0.5rem;
+    text-align: center;
+    margin: 0.5rem 0;
+    color: $primary-dark;
+
+    &::placeholder {
+      text-align: center;
+      color: $primary-midtone;
+      font-family: $font-family;
+    }
+
+    &:focus {
+      border: 1px solid $primary-dark;
+      outline: none;
+    }
+
+    &--error {
+      animation: shake 0.3s ease;
+    }
+  }
+
+  &__error {
+    text-align: center;
+    font-size: 0.75rem;
+    height: 1.5rem;
+    color: $primary-midtone;
+  }
+
+  &__button {
+    width: 100%;
+  }
+}
+
+input:focus::placeholder {
+  color: transparent;
+}
