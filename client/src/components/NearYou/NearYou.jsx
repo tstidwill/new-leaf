@@ -16,13 +16,15 @@ export default function NearYou({ leaves }) {
               <p className="nearyou__address">{shop.address}</p>
 
               <p>{shop.description}</p>
-              <a
-                className="nearyou__button button--square"
-                href={shop.website}
-                target="_blank"
-              >
-                Find out more
-              </a>
+              {shop.website && (
+                <a
+                  className="nearyou__button button--square"
+                  href={shop.website}
+                  target="_blank"
+                >
+                  Find out more
+                </a>
+              )}
             </div>
             <div className="nearyou_imagecontainer">
               {shop.type === "zero_waste_grocery" && (
