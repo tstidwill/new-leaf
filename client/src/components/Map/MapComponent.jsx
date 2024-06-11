@@ -21,6 +21,7 @@ export default function MapComponent({ submittedPostalCode, selectedType }) {
   const [error, setError] = useState(null);
   const [leaves, setLeaves] = useState(null);
   const [selectedShop, setSelectedShop] = useState(null);
+  const [loading, setLoading] = useState(true);
 
   const geocodePostalCode = async () => {
     try {
@@ -110,8 +111,10 @@ export default function MapComponent({ submittedPostalCode, selectedType }) {
           await getThriftStores(coordinates);
           await getCommunityGardens(coordinates);
           getLocationsWithinDistance(coordinates, selectedType);
+          setLoading(false);
         } catch (error) {
           setError("Error fetching data");
+          setLoading(false);
         }
       }
     };
@@ -121,12 +124,17 @@ export default function MapComponent({ submittedPostalCode, selectedType }) {
   return (
     <>
       <APIProvider apiKey={API_KEY}>
-        {!coordinates && (
+        {loading && (
+          <div className="map-container">
+            <p>Loading...</p>
+          </div>
+        )}
+        {!coordinates && !loading && (
           <div className="map-container">
             <p>Please enter a postal code above</p>
           </div>
         )}
-        {coordinates && (
+        {coordinates && !loading && (
           <Map
             className="map-container"
             center={{ lat: coordinates.lat, lng: coordinates.lng }}
