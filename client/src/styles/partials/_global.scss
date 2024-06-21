@@ -15,8 +15,13 @@ body {
 
 h1 {
   font-weight: 600;
-  font-size: 3rem;
+  font-size: 2rem;
   line-height: 2.75rem;
+
+  @include tablet {
+    font-size: 3rem;
+    line-height: 3.25rem;
+  }
 }
 
 h2 {
@@ -33,19 +38,29 @@ h3 {
 
 h4 {
   font-weight: 600;
-  font-size: 1.25rem;
-  line-height: 1.75rem;
+  font-size: 1rem;
+  line-height: 1.25rem;
+
+  @include tablet {
+    font-size: 1.5rem;
+    line-height: 1.75rem;
+  }
 }
 
 h5 {
   font-weight: 400;
-  font-size: 1rem;
-  line-height: 2rem;
+  font-size: 0.75rem;
+  line-height: 1rem;
+
+  @include tablet {
+    font-size: 0.8rem;
+    line-height: 1.2rem;
+  }
 }
 h6 {
   font-family: $special-font;
   font-weight: 400;
-  font-size: 0.9rem;
+  font-size: 0.75rem;
   line-height: 1.25rem;
 }
 
@@ -73,13 +88,18 @@ a {
 }
 
 .logo {
-  width: 75px;
-  height: 75px;
+  width: 3.5rem;
+  height: 3.5rem;
+
+  @include tablet {
+    width: 4rem;
+    height: 4rem;
+  }
 }
 
 .button--round {
   width: 10rem;
-  height: 2.5rem;
+  height: 2rem;
   border: none;
   border-radius: 50px;
   color: $primary-light;
