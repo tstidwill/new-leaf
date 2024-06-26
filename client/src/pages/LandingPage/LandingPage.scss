@@ -25,37 +25,108 @@
   display: flex;
   flex-direction: column;
 
-  &__logobox {
-    display: flex;
-    height: 10vh;
-    padding: 1.5rem 0.75rem;
-  }
-
   &__body {
     height: 90vh;
     display: flex;
     flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 5rem;
+
+    @include tablet {
+      height: 95vh;
+    }
+  }
+}
+
+.header {
+  display: flex;
+  height: 10vh;
+  justify-content: space-between;
+  align-items: center;
+
+  @include tablet {
+    height: 5vh;
+    padding: 0.75rem 1.5rem;
+    border-bottom: 1px solid $primary-dark;
   }
 
-  &__caption {
+  &__logo {
+    margin-left: 0.5rem;
+
+    @include tablet {
+      margin-left: 0;
+    }
+  }
+
+  &__nav {
+    display: none;
+
+    @include tablet {
+      display: flex;
+      justify-content: space-between;
+      width: 30%;
+    }
+  }
+
+  &__navlink {
+    display: none;
+
+    @include tablet {
+      display: flex;
+      font-weight: bold;
+    }
+  }
+}
+
+.hero {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  padding: 1rem;
+
+  @include tablet {
+    flex-direction: row;
     position: relative;
+    padding: 0;
+  }
+
+  &__text-side {
+    width: 100%;
+
+    @include tablet {
+      padding-left: 2rem;
+      width: 40%;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-around;
+    }
   }
 
   &__header {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-bottom: 5rem;
+  }
+
+  &__title {
     text-align: center;
   }
 
   &__subheader {
+    display: flex;
+    justify-content: center;
     color: $primary-midtone;
-    position: absolute;
-    bottom: 30px;
-    left: -18px;
+    position: relative;
+    top: 14px;
+    right: 60px;
 
     @include tablet {
-      bottom: 40px;
+      bottom: 10px;
+      right: 65px;
+    }
+
+    @include desktop {
+      bottom: 50px;
+      left: -35px;
     }
   }
 
@@ -64,9 +135,17 @@
     min-width: 80%;
   }
 
+  &__caption {
+    font-weight: 600;
+  }
+
   &__form {
     display: flex;
     flex-direction: column;
+    align-items: center;
+    @include tablet {
+      align-items: flex-start;
+    }
   }
 
   &__input {
@@ -75,11 +154,18 @@
     height: 2rem;
     padding: 0.5rem;
     text-align: center;
-    margin-top: 0.5rem;
+    margin-top: 1rem;
     color: $primary-dark;
     font-size: 0.7rem;
+    width: 100%;
 
     @include tablet {
+      display: none;
+    }
+
+    @include desktop {
+      margin-top: 1.5rem;
+      max-width: 30rem;
       font-size: 1rem;
     }
 
@@ -88,6 +174,10 @@
       color: $primary-midtone;
       font-family: $font-family;
       font-size: 0.7rem;
+
+      @include desktop {
+        font-size: 0.8rem;
+      }
     }
 
     &:focus {
@@ -111,9 +201,80 @@
 
   &__button {
     width: 100%;
+
+    @include tablet {
+      max-width: 22rem;
+      height: 3rem;
+    }
+
+    @include desktop {
+      max-width: 30rem;
+    }
+  }
+
+  &__image-side {
+    display: none;
+
+    @include tablet {
+      display: flex;
+      width: 60%;
+      min-height: 40rem;
+    }
+  }
+
+  &__image-container {
+    display: none;
+
+    @include tablet {
+      display: flex;
+      height: 80%;
+      width: 50%;
+      position: absolute;
+      bottom: 0;
+      right: 2rem;
+    }
+  }
+
+  &__image {
+    display: none;
+
+    @include tablet {
+      display: flex;
+      overflow: hidden;
+      object-fit: cover;
+    }
   }
 }
 
 input:focus::placeholder {
   color: transparent;
+}
+
+.upcoming {
+  display: none;
+  background-color: $secondary-light;
+  color: $primary-dark;
+  height: 20rem;
+
+  @include tablet {
+    display: flex;
+    width: 100%;
+  }
+  &__header {
+    padding: 1rem;
+  }
+}
+
+.mission {
+  display: none;
+  background-color: $primary-dark;
+  color: $primary-light;
+  height: 20rem;
+
+  @include tablet {
+    display: flex;
+  }
+  &__header {
+    padding: 1rem;
+  }
 }
