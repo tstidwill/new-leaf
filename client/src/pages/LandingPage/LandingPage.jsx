@@ -1,7 +1,8 @@
 import "./LandingPage.scss";
 import greenLogo from "../../assets/logos/greenlogo.png";
 import treeSeedling from "../../assets/images/pexels-akilmazumder-1072824.jpg";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, NavLink } from "react-router-dom";
+import DiscoverPage from "../DiscoverPage/DiscoverPage";
 
 export default function LandingPage({
   postalCode,
@@ -39,9 +40,15 @@ export default function LandingPage({
             alt="leaf logo"
           ></img>
           <ul className="header__nav">
-            <a className="header__navlink">home</a>
-            <a className="header__navlink">leaves</a>
-            <a className="header__navlink">events</a>
+            <NavLink to="/" className="header__navlink">
+              home
+            </NavLink>
+            <NavLink to="/discover" className="header__navlink">
+              discover
+            </NavLink>
+            <NavLink to="/events" className="header__navlink">
+              events
+            </NavLink>
           </ul>
         </div>
         <div className="landingpage__body">
@@ -70,6 +77,12 @@ export default function LandingPage({
                   <button className="button--round hero__button" type="submit">
                     <h6>discover</h6>
                   </button>
+                  <NavLink to="/discover">
+                    {" "}
+                    <a className="button--round hero__button--tablet">
+                      discover
+                    </a>
+                  </NavLink>
                 </form>
               </div>
             </div>
